@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>My Store</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-   
-</head>
-<body>
-     <script src="products.js"></script>    
-    <script src="index.js"></script>   
-</body>
+  <head>
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js"></script>
+    <script src="products.js"></script>
+  </head>
+  <body>
+    <div id="home" style="display:none">
+      <button type="button" id="btnSearch" onClick="showHome()">Home</button>
+      Search<input id="search" onChange="searchTextChanged(this)">
+      <button type="button" id="btnSearch" onClick="search()">Search</button>
+      <button type="button" id="btnCart" onClick="showCart()">Cart</button>
+      <div id="main"></div>
+      <button style="display:none" type="button" id="btnAddToCart" onClick="addToCart(state.currentProductToAdd)">Add To Cart</button>
+    </div>
+    <div id="signup">
+        Email <input id="email" > <br>
+        Password <input id="password" > <br>
+         <button type="button" id="btnSignUp" onClick="signUp()">Sign Up</button>
+    </div>
+
+  </body>
+
 </html>
