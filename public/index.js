@@ -18,6 +18,7 @@ let mainDiv = null;
   
   
 window.onload = function(){
+  
   mainDiv = document.getElementById("main");
   signup = document.getElementById("signup");
   home = document.getElementById("home");
@@ -28,7 +29,8 @@ window.onload = function(){
   txtPassword = document.getElementById("password");
   btnSignUp = document.getElementById("btnSignUp");
   btnSignUp.onclick = signUp;
-  listProducts(products);    
+  listProducts(products);
+  //updateUi()    
 }
 
 function signUp(){
@@ -52,9 +54,20 @@ function signUp(){
   
   fetch('https://acastore.herokuapp.com/users', options)
   .then(res => res.json())
-  .then(data => console.log(data));
-  // console.log(window.localStorage.getItem(data));
+  .then(data => {
+    window.localStorage.setItem("data", JSON.stringify(data));
+    console.log(data);
+  }).then(() => update());
+  // console.log(localStorage.getItem(data));
 }
+
+// function update() {
+//   if (localStorage.getItem(data)) JSON.parse to retrieve{
+//     make button to sign out
+//     //clearstorage
+//   } else
+//   //hide signup div
+// }
 
 function searchTextChanged(e){
   state.searchText = e.value;
