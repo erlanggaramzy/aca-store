@@ -1,7 +1,3 @@
-
-
-// const fetch = require('node-fetch');
-
 let state = {
   searchText:"",
   currentProductToAdd:null
@@ -16,7 +12,6 @@ let signup = null;
 let home = null;
 let mainDiv = null;
   
-  
 window.onload = function(){
   
   mainDiv = document.getElementById("main");
@@ -30,7 +25,7 @@ window.onload = function(){
   btnSignUp = document.getElementById("btnSignUp");
   btnSignUp.onclick = signUp;
   listProducts(products);
-  //updateUi()    
+  updateUi();    
 }
 
 function signUp(){
@@ -57,17 +52,16 @@ function signUp(){
   .then(data => {
     window.localStorage.setItem("data", JSON.stringify(data));
     console.log(data);
-  }).then(() => update());
+  }).then(() => updateUi());
   // console.log(localStorage.getItem(data));
 }
 
-// function update() {
-//   if (localStorage.getItem(data)) JSON.parse to retrieve{
-//     make button to sign out
-//     //clearstorage
-//   } else
-//   //hide signup div
-// }
+function updateUi() {
+  if (localStorage.getItem("data")){
+    home.style.display = "block";
+    signup.style.display = "none";
+  }
+}
 
 function searchTextChanged(e){
   state.searchText = e.value;
@@ -86,11 +80,19 @@ function showProductDetail(id){
 }
 
 function listProducts(products){
-  let prodDivs = products.map(p=>{
-    return `<hr><div onclick="showProductDetail(${p._id})">${p.name}</div>`
+  // let prodDivs = products.map(p=>{
+  //   return `<hr><div onclick="showProductDetail(${p._id})">${p.name}</div>`
       
+  // });
+  fetch('https://acastore.herokuapp.com/products')
+  .then(res => res.json())
+  .then(data => {
+    let prodDivs = data.map(p=>{
+      return `<hr><div onclick="showProductDetail(${p.id})">${p.name}</div>`        
+    });
+    mainDiv.innerHTML = prodDivs.join("");
   });
-  mainDiv.innerHTML = prodDivs.join("");
+  
 }
 
 function addToCart(prod){
